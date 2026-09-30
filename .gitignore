@@ -1,0 +1,8 @@
+.env
+venv/
+fincaraiz_session/
+.history/
+__pycache__/
+*.pyc
+inmuebles_db.backup
+inmuebles_export.json
