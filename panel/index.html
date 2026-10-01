@@ -1,0 +1,1982 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nexa Propiedades - Panel de Asesores</title>
+
+    <style>
+
+        /* =========================================
+           CONFIGURACIÓN GENERAL
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: #f3f4f6;
+            display: flex;
+            overflow: hidden;
+        }
+
+
+        /* =========================================
+           PANEL IZQUIERDO
+        ========================================= */
+
+        .sidebar {
+            width: 330px;
+            min-width: 330px;
+            background: #ffffff;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            padding: 20px;
+            background: #111827;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 21px;
+        }
+
+        .logo p {
+            margin-top: 5px;
+            font-size: 13px;
+            color: #d1d5db;
+        }
+
+
+        /* CABECERA CONVERSACIONES */
+
+        .sidebar-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-header h2 {
+            font-size: 17px;
+            color: #111827;
+        }
+
+
+        /* BOTÓN ACTUALIZAR */
+
+        .btn-refresh {
+            border: none;
+            background: #e5e7eb;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .btn-refresh:hover {
+            background: #d1d5db;
+        }
+
+
+        /* LISTA */
+
+        #listaConversaciones {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+
+        /* CONVERSACIÓN */
+
+        .conversacion {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .conversacion:hover {
+            background: #f3f4f6;
+        }
+
+        .conversacion.activa {
+            background: #e5e7eb;
+        }
+
+
+        /* NÚMERO */
+
+        .numero {
+            font-weight: bold;
+            color: #111827;
+            font-size: 14px;
+        }
+
+
+        /* MODO */
+
+        .modo {
+            display: inline-block;
+            margin-top: 7px;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .modo.bot {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .modo.asesor {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+
+        /* MENSAJES NUEVOS */
+
+        .badge-nuevos {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: 20px;
+            height: 20px;
+
+            margin-left: 8px;
+            padding: 0 6px;
+
+            border-radius: 20px;
+
+            background: #dc2626;
+            color: white;
+
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           PANEL DERECHO
+        ========================================= */
+
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+
+        /* =========================================
+           ENCABEZADO DEL CHAT
+        ========================================= */
+
+        .chat-header {
+            min-height: 75px;
+
+            background: white;
+            border-bottom: 1px solid #ddd;
+
+            display: flex;
+            align-items: center;
+
+            padding: 15px 25px;
+        }
+
+        .chat-header h2 {
+            font-size: 18px;
+            color: #111827;
+        }
+
+        .chat-header span {
+            display: inline-block;
+            margin-top: 5px;
+
+            font-size: 11px;
+            font-weight: bold;
+
+            padding: 4px 8px;
+            border-radius: 10px;
+
+            background: #dcfce7;
+            color: #166534;
+        }
+
+
+        /* =========================================
+           BOTONES DE CONVERSACIÓN
+        ========================================= */
+
+        .acciones-conversacion {
+            background: white;
+
+            border-bottom: 1px solid #ddd;
+
+            padding: 10px 15px;
+
+            display: flex;
+            gap: 10px;
+        }
+
+        .acciones-conversacion button {
+            border: none;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+            font-size: 13px;
+
+            transition:
+                opacity 0.2s,
+                transform 0.1s;
+        }
+
+        .acciones-conversacion button:hover {
+            opacity: 0.85;
+        }
+
+        .acciones-conversacion button:active {
+            transform: scale(0.98);
+        }
+
+        #btnTomar {
+            background: #198754;
+            color: white;
+        }
+
+        #btnBot {
+            background: #6c757d;
+            color: white;
+        }
+
+
+        /* =========================================
+           HISTORIAL
+        ========================================= */
+
+        #historial {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding: 25px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 10px;
+
+            background: #f3f4f6;
+        }
+
+
+        /* =========================================
+           MENSAJES
+        ========================================= */
+
+        .mensaje {
+            max-width: 65%;
+
+            padding: 10px 13px;
+
+            border-radius: 10px;
+
+            line-height: 1.4;
+
+            word-wrap: break-word;
+
+            box-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+
+        /* CLIENTE */
+
+        .mensaje.cliente {
+            align-self: flex-start;
+
+            background: white;
+
+            border: 1px solid #ddd;
+        }
+
+
+        /* BOT */
+
+        .mensaje.bot {
+            align-self: flex-end;
+
+            background: #dcfce7;
+        }
+
+
+        /* ASESOR */
+
+        .mensaje.asesor {
+            align-self: flex-end;
+
+            background: #dbeafe;
+        }
+
+
+        /* REMITENTE */
+
+        .remitente {
+            font-size: 11px;
+
+            font-weight: bold;
+
+            margin-bottom: 4px;
+
+            color: #4b5563;
+        }
+
+
+        /* HORA */
+
+        .hora {
+            font-size: 10px;
+
+            color: #6b7280;
+
+            margin-top: 5px;
+
+            text-align: right;
+        }
+
+
+        /* =========================================
+           PANTALLA INICIAL
+        ========================================= */
+
+        .sin-seleccion {
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            color: #6b7280;
+
+            text-align: center;
+
+            padding: 30px;
+        }
+
+        .sin-seleccion div {
+            max-width: 400px;
+        }
+
+        .sin-seleccion h2 {
+            margin-bottom: 10px;
+
+            color: #374151;
+        }
+
+
+        /* =========================================
+           NOTIFICACIÓN NUEVOS MENSAJES
+        ========================================= */
+
+        .notificacion-nuevos {
+            position: absolute;
+
+            top: 85px;
+            right: 30px;
+
+            background: #111827;
+            color: white;
+
+            padding: 9px 15px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.2);
+
+            z-index: 10;
+        }
+
+        .notificacion-nuevos:hover {
+            background: #374151;
+        }
+
+
+        /* =========================================
+           ÁREA DE RESPUESTA
+        ========================================= */
+
+        .zona-respuesta {
+            background: white;
+
+            border-top: 1px solid #ddd;
+
+            padding: 12px 15px;
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .zona-respuesta input {
+            flex: 1;
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .zona-respuesta input:focus {
+            border-color: #6b7280;
+        }
+
+        .zona-respuesta button {
+            border: none;
+
+            background: #111827;
+            color: white;
+
+            padding: 0 20px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .zona-respuesta button:hover {
+            background: #374151;
+        }
+        /* =========================================
+   BOTÓN VOLVER - MÓVIL
+========================================= */
+
+.btn-volver {
+    display: none;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px;
+}
+
+
+/* =========================================
+   RESPONSIVE PARA CELULAR
+========================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        height: 100dvh;
+        min-height: 100dvh;
+        overflow: hidden;
+    }
+
+    /* Lista de conversaciones */
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        border-right: none;
+    }
+
+    /* Chat oculto mientras estamos en la lista */
+    .chat {
+        display: none;
+        width: 100%;
+        min-width: 100%;
+    }
+
+    /* Cuando hay una conversación seleccionada */
+    body.movil-chat-activo .sidebar {
+        display: none;
+    }
+
+    body.movil-chat-activo .chat {
+        display: flex;
+    }
+
+    /* Botón volver */
+    .btn-volver {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Encabezado */
+    .chat-header {
+        min-height: 65px;
+        padding: 10px 15px;
+        gap: 10px;
+    }
+
+    /* Botones de conversación */
+    .acciones-conversacion {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .acciones-conversacion button {
+        flex: 1;
+        font-size: 12px;
+        padding: 10px 6px;
+    }
+
+    /* Mensajes */
+    .mensaje {
+        max-width: 85%;
+    }
+
+    #historial {
+        padding: 15px 10px 10px;
+    }
+
+    /* Zona para escribir */
+    .zona-respuesta {
+        padding: 8px;
+    }
+
+    .zona-respuesta input {
+        min-width: 0;
+    }
+
+    .zona-respuesta button {
+        padding: 0 14px;
+    }
+
+    /* Notificación */
+    .notificacion-nuevos {
+        top: 75px;
+        right: 15px;
+    }
+}
+
+
+        /* =========================================
+          COMPORTAMIENTO EN PC
+        ========================================= */
+
+        @media (min-width: 701px) {
+
+     body.movil-chat-activo .sidebar,
+      body.movil-chat-activo .chat {
+        display: flex;
+    }
+}
+
+
+        /* =========================================
+           SCROLLBAR
+        ========================================= */
+
+        #listaConversaciones::-webkit-scrollbar,
+        #historial::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        #listaConversaciones::-webkit-scrollbar-thumb,
+        #historial::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        #listaConversaciones::-webkit-scrollbar-thumb:hover,
+        #historial::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+
+        /* =========================================
+           RESPONSIVE BASE
+           
+           NO ES TODAVÍA LA FASE 2.
+           Solo dejamos preparada la estructura.
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 280px;
+                min-width: 280px;
+            }
+
+            .mensaje {
+                max-width: 75%;
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         LISTA DE CONVERSACIONES
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h1>
+                🏠 Nexa Propiedades
+            </h1>
+
+            <p>
+                Panel de asesores
+            </p>
+
+        </div>
+
+
+        <div class="sidebar-header">
+
+            <h2>
+                Conversaciones
+            </h2>
+
+            <button
+                type="button"
+                class="btn-refresh"
+                onclick="cargarConversaciones()"
+                title="Actualizar conversaciones"
+            >
+                🔄
+            </button>
+
+        </div>
+
+
+        <div id="listaConversaciones">
+
+            <p style="padding: 20px;">
+                Cargando conversaciones...
+            </p>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         CHAT
+    ========================================= -->
+
+    <main class="chat">
+
+
+        <!-- PANTALLA INICIAL -->
+
+        <div
+            id="pantallaInicial"
+            class="sin-seleccion"
+        >
+
+            <div>
+
+                <h2>
+                    💬 Panel de conversaciones
+                </h2>
+
+                <p>
+                    Selecciona una conversación para
+                    visualizar el historial de mensajes.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CONTENIDO DEL CHAT -->
+
+        <div
+            id="chatContenido"
+            style="
+                display: none;
+                height: 100%;
+                flex-direction: column;
+            "
+        >
+
+
+            <!-- ENCABEZADO -->
+
+            <div class="chat-header">
+                
+                <button
+                id="btnVolverChats"
+                  class="btn-volver"
+                  type="button"
+                onclick="volverConversaciones()"
+                    >
+                ← Chats
+                </button>
+
+                <div>
+
+                    <h2 id="numeroCliente">
+                        Cliente
+                    </h2>
+
+                    <span id="modoCliente">
+                        BOT
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOTONES -->
+
+            <div class="acciones-conversacion">
+
+                <button
+                    type="button"
+                    id="btnTomar"
+                    onclick="tomarConversacion()"
+                >
+                    👨‍💼 Tomar conversación
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btnBot"
+                    onclick="devolverAlBot()"
+                >
+                    🤖 Devolver al bot
+                </button>
+
+            </div>
+
+
+
+            <!-- NOTIFICACIÓN -->
+
+            <div
+                id="notificacionNuevos"
+                class="notificacion-nuevos"
+                style="display: none;"
+                onclick="irAlUltimoMensaje()"
+            >
+                🔔 Nuevos mensajes
+            </div>
+
+
+
+            <!-- HISTORIAL -->
+
+            <div id="historial">
+            </div>
+
+
+
+            <!-- RESPUESTA -->
+
+            <div class="zona-respuesta">
+
+                <input
+                    type="text"
+                    id="mensajeInput"
+                    placeholder="Escribe un mensaje..."
+                    autocomplete="off"
+                    onkeydown="manejarEnter(event)"
+                >
+
+
+                <button
+                    type="button"
+                    onclick="enviarMensajePanel()"
+                >
+                    📤 Enviar
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <script>
+
+
+        /* =========================================
+           VARIABLES
+        ========================================= */
+
+        let conversacionSeleccionada = null;
+
+        let ultimosMensajes = {};
+
+        let intervaloConversaciones = null;
+
+        let intervaloChat = null;
+
+
+
+        /* =========================================
+           CARGAR CONVERSACIONES
+        ========================================= */
+
+        async function cargarConversaciones() {
+
+            const lista =
+                document.getElementById(
+                    "listaConversaciones"
+                );
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "/panel/conversaciones"
+                    );
+
+
+                if (!respuesta.ok) {
+
+                    throw new Error(
+                        "Error HTTP " +
+                        respuesta.status
+                    );
+
+                }
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                lista.innerHTML = "";
+
+
+                if (
+                    !datos.conversaciones ||
+                    datos.conversaciones.length === 0
+                ) {
+
+                    lista.innerHTML =
+                        `
+                            <p style="padding:20px;">
+                                No hay conversaciones.
+                            </p>
+                        `;
+
+                    return;
+                }
+
+
+
+                datos.conversaciones.forEach(
+                    conversacion => {
+
+                        const numero =
+                            conversacion[0];
+
+                        const modo =
+                            conversacion[1];
+
+                        const fecha =
+                            conversacion[2];
+
+                        const ultimoMensajeId =
+                            conversacion[3];
+
+
+                        /* =================================
+                           MENSAJES NUEVOS
+                        ================================= */
+
+                        let mensajesNuevos = 0;
+
+
+                        if (
+                            ultimosMensajes[numero] !== undefined
+                        ) {
+
+                            if (
+                                ultimoMensajeId >
+                                ultimosMensajes[numero]
+                            ) {
+
+                                mensajesNuevos =
+                                    ultimoMensajeId -
+                                    ultimosMensajes[numero];
+
+                            }
+
+                        }
+
+
+                        ultimosMensajes[numero] =
+                            ultimoMensajeId;
+
+
+
+                        /* =================================
+                           ELEMENTO
+                        ================================= */
+
+                        const elemento =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        elemento.classList.add(
+                            "conversacion"
+                        );
+
+
+                        if (
+                            numero ===
+                            conversacionSeleccionada
+                        ) {
+
+                            elemento.classList.add(
+                                "activa"
+                            );
+
+                        }
+
+
+
+                        const modoClase =
+                            modo === "ASESOR"
+                                ? "asesor"
+                                : "bot";
+
+
+
+                        elemento.innerHTML = `
+
+                            <div class="numero">
+
+                                📱 ${numero}
+
+                                ${
+                                    mensajesNuevos > 0 &&
+                                    numero !== conversacionSeleccionada
+                                    ?
+                                    `
+                                        <span class="badge-nuevos">
+                                            ${mensajesNuevos}
+                                        </span>
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+
+                            <span class="modo ${modoClase}">
+                                ${modo}
+                            </span>
+
+                        `;
+
+
+
+                        elemento.onclick = () => {
+
+                            cargarHistorial(
+                                numero
+                            );
+
+                        };
+
+
+
+                        lista.appendChild(
+                            elemento
+                        );
+
+                    }
+                );
+
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Error cargando conversaciones:",
+                    error
+                );
+
+
+                lista.innerHTML = `
+
+                    <p
+                        style="
+                            padding:20px;
+                            color:red;
+                        "
+                    >
+                        ❌ Error cargando conversaciones.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           CARGAR HISTORIAL
+        ========================================= */
+
+        async function cargarHistorial(
+            numero,
+            limpiarNotificacion = true
+        ) {
+
+
+            conversacionSeleccionada =
+                numero;
+
+                conversacionSeleccionada = numero;
+
+                if (window.innerWidth <= 700) {
+                document.body.classList.add("movil-chat-activo");
+                } 
+
+
+            const chatContenido =
+                document.getElementById(
+                    "chatContenido"
+                );
+
+
+
+            pantallaInicial.style.display =
+                "none";
+
+
+            chatContenido.style.display =
+                "flex";
+
+
+            chatContenido.style.flexDirection =
+                "column";
+
+
+
+            document.getElementById(
+                "numeroCliente"
+            ).textContent =
+                "📱 " + numero;
+
+
+
+            const historial =
+                document.getElementById(
+                    "historial"
+                );
+
+
+            historial.innerHTML =
+                "<p>Cargando mensajes...</p>";
+
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        `/panel/conversaciones/${numero}`
+                    );
+
+
+                if (!respuesta.ok) {
+
+                    throw new Error(
+                        "Error HTTP " +
+                        respuesta.status
+                    );
+
+                }
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                historial.innerHTML = "";
+
+
+
+                if (
+                    !datos.mensajes ||
+                    datos.mensajes.length === 0
+                ) {
+
+                    historial.innerHTML =
+                        "<p>No hay mensajes.</p>";
+
+                    return;
+
+                }
+
+
+
+                datos.mensajes.forEach(
+                    mensaje => {
+
+
+                        /*
+                            0 = id_mensaje
+                            1 = numero_cliente
+                            2 = remitente
+                            3 = mensaje
+                            4 = fecha_hora
+                            5 = asesor_id
+                        */
+
+
+                        const remitente =
+                            mensaje[2];
+
+                        const texto =
+                            mensaje[3];
+
+                        const fecha =
+                            mensaje[4];
+
+
+
+                        let clase =
+                            "cliente";
+
+                        let nombre =
+                            "👤 Cliente";
+
+
+
+                        if (
+                            remitente &&
+                            remitente.toLowerCase() ===
+                            "bot"
+                        ) {
+
+                            clase =
+                                "bot";
+
+                            nombre =
+                                "🤖 Bot";
+
+                        }
+
+
+
+                        if (
+                            remitente &&
+                            remitente.toLowerCase() ===
+                            "asesor"
+                        ) {
+
+                            clase =
+                                "asesor";
+
+                            nombre =
+                                "👨‍💼 Asesor";
+
+                        }
+
+
+
+                        if (
+                            remitente &&
+                            remitente.toLowerCase() ===
+                            "cliente"
+                        ) {
+
+                            clase =
+                                "cliente";
+
+                            nombre =
+                                "👤 Cliente";
+
+                        }
+
+
+
+                        const elemento =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        elemento.dataset.id =
+                            mensaje[0];
+
+
+                        elemento.classList.add(
+                            "mensaje",
+                            clase
+                        );
+
+
+
+                        let fechaFormateada =
+                            "";
+
+
+
+                        if (fecha) {
+
+                            fechaFormateada =
+                                new Date(fecha)
+                                .toLocaleString(
+                                    "es-CO"
+                                );
+
+                        }
+
+
+
+                        elemento.innerHTML = `
+
+                            <div class="remitente">
+                                ${nombre}
+                            </div>
+
+                            <div>
+                                ${escaparHTML(texto)}
+                            </div>
+
+                            <div class="hora">
+                                ${fechaFormateada}
+                            </div>
+
+                        `;
+
+
+
+                        historial.appendChild(
+                            elemento
+                        );
+
+                    }
+                );
+
+
+
+                /* =================================
+                   ACTUALIZAR MODO
+                ================================= */
+
+                const modo =
+                    datos.modo || "BOT";
+
+
+                const modoElemento =
+                    document.getElementById(
+                        "modoCliente"
+                    );
+
+
+                modoElemento.textContent =
+                    modo;
+
+
+                modoElemento.style.background =
+                    modo === "ASESOR"
+                        ? "#dbeafe"
+                        : "#dcfce7";
+
+
+                modoElemento.style.color =
+                    modo === "ASESOR"
+                        ? "#1e40af"
+                        : "#166534";
+
+
+
+                /* =================================
+                   NOTIFICACIÓN
+                ================================= */
+
+                if (limpiarNotificacion) {
+
+                    ocultarNotificacionNuevos();
+
+                }
+
+
+
+                /* =================================
+                   IR AL ÚLTIMO MENSAJE
+                ================================= */
+
+                historial.scrollTop =
+                    historial.scrollHeight;
+
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+
+                historial.innerHTML = `
+
+                    <p style="color:red;">
+
+                        ❌ Error cargando el historial.
+
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           TOMAR CONVERSACIÓN
+        ========================================= */
+
+        async function tomarConversacion() {
+
+
+            if (!conversacionSeleccionada) {
+
+                alert(
+                    "Selecciona una conversación primero."
+                );
+
+                return;
+
+            }
+
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "/panel/tomar",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                numero:
+                                    conversacionSeleccionada
+                            })
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    alert(
+                        datos.error ||
+                        "No se pudo tomar la conversación."
+                    );
+
+                    return;
+
+                }
+
+
+
+                await cargarConversaciones();
+
+                await cargarHistorial(
+                    conversacionSeleccionada
+                );
+
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           DEVOLVER AL BOT
+        ========================================= */
+
+        async function devolverAlBot() {
+
+
+            if (!conversacionSeleccionada) {
+
+                alert(
+                    "Selecciona una conversación primero."
+                );
+
+                return;
+
+            }
+
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "/panel/devolver-bot",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                numero:
+                                    conversacionSeleccionada
+                            })
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    alert(
+                        datos.error ||
+                        "No se pudo devolver la conversación al bot."
+                    );
+
+                    return;
+
+                }
+
+
+
+                await cargarConversaciones();
+
+                await cargarHistorial(
+                    conversacionSeleccionada
+                );
+
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           SEGURIDAD HTML
+        ========================================= */
+
+        function escaparHTML(texto) {
+
+            if (!texto) {
+                return "";
+            }
+
+
+            return String(texto)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+
+        /* =========================================
+           ENVIAR MENSAJE DESDE PANEL
+        ========================================= */
+
+        async function enviarMensajePanel() {
+
+
+            if (!conversacionSeleccionada) {
+
+                alert(
+                    "Selecciona primero una conversación."
+                );
+
+                return;
+
+            }
+
+
+
+            const input =
+                document.getElementById(
+                    "mensajeInput"
+                );
+
+
+            const mensaje =
+                input.value.trim();
+
+
+
+            if (!mensaje) {
+                return;
+            }
+
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "/panel/enviar",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                numero:
+                                    conversacionSeleccionada,
+
+                                mensaje:
+                                    mensaje
+
+                            })
+
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    alert(
+                        datos.error ||
+                        "No se pudo enviar el mensaje."
+                    );
+
+                    return;
+
+                }
+
+
+
+                input.value = "";
+
+
+                await cargarHistorial(
+                    conversacionSeleccionada
+                );
+
+
+                input.focus();
+
+
+            }
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           ENTER PARA ENVIAR
+        ========================================= */
+
+        function manejarEnter(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                enviarMensajePanel();
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           ACTUALIZAR CHAT AUTOMÁTICAMENTE
+        ========================================= */
+
+        async function actualizarChat() {
+
+
+            if (!conversacionSeleccionada) {
+                return;
+            }
+
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        `/panel/conversaciones/${conversacionSeleccionada}`
+                    );
+
+
+                if (!respuesta.ok) {
+                    return;
+                }
+
+
+                const datos =
+                    await respuesta.json();
+
+
+
+                if (
+                    !datos.mensajes ||
+                    datos.mensajes.length === 0
+                ) {
+
+                    return;
+
+                }
+
+
+
+                const ultimoMensaje =
+                    datos.mensajes[
+                        datos.mensajes.length - 1
+                    ];
+
+
+                const ultimoId =
+                    ultimoMensaje[0];
+
+
+
+                const historial =
+                    document.getElementById(
+                        "historial"
+                    );
+
+
+                const ultimoElemento =
+                    historial.lastElementChild;
+
+
+
+                let ultimoIdMostrado =
+                    null;
+
+
+
+                if (ultimoElemento) {
+
+                    ultimoIdMostrado =
+                        ultimoElemento.dataset.id;
+
+                }
+
+
+
+                if (
+                    ultimoIdMostrado &&
+                    Number(ultimoId) >
+                    Number(ultimoIdMostrado)
+                ) {
+
+
+                    mostrarNotificacionNuevos();
+
+
+                    reproducirNotificacion();
+
+
+                    await cargarHistorial(
+                        conversacionSeleccionada,
+                        false
+                    );
+
+                }
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Error actualizando chat:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================
+           MOSTRAR NOTIFICACIÓN
+        ========================================= */
+
+        function mostrarNotificacionNuevos() {
+
+            const notificacion =
+                document.getElementById(
+                    "notificacionNuevos"
+                );
+
+
+            notificacion.style.display =
+                "block";
+
+        }
+
+
+
+        /* =========================================
+           OCULTAR NOTIFICACIÓN
+        ========================================= */
+
+        function ocultarNotificacionNuevos() {
+
+            const notificacion =
+                document.getElementById(
+                    "notificacionNuevos"
+                );
+
+
+            notificacion.style.display =
+                "none";
+
+        }
+
+
+
+        /* =========================================
+           IR AL ÚLTIMO MENSAJE
+        ========================================= */
+
+        function irAlUltimoMensaje() {
+
+            const historial =
+                document.getElementById(
+                    "historial"
+                );
+
+
+            historial.scrollTop =
+                historial.scrollHeight;
+
+
+            ocultarNotificacionNuevos();
+
+        }
+
+
+
+        /* =========================================
+           SONIDO DE NOTIFICACIÓN
+        ========================================= */
+
+        function reproducirNotificacion() {
+
+            try {
+
+                const audio =
+                    new Audio(
+                        "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA="
+                    );
+
+
+                audio
+                    .play()
+                    .catch(() => {});
+
+            }
+            catch (error) {
+
+                console.log(
+                    "No se pudo reproducir la notificación."
+                );
+
+            }
+
+        }
+
+        function volverConversaciones() {
+
+    document.body.classList.remove("movil-chat-activo");
+
+    conversacionSeleccionada = null;
+
+    document.getElementById("chatContenido").style.display = "none";
+    document.getElementById("pantallaInicial").style.display = "flex";
+
+    ocultarNotificacionNuevos();
+   }
+
+        /* =========================================
+           INICIAR PANEL
+        ========================================= */
+
+        cargarConversaciones();
+
+
+
+        /* =========================================
+           ACTUALIZACIÓN AUTOMÁTICA
+        ========================================= */
+
+        intervaloConversaciones =
+            setInterval(
+                cargarConversaciones,
+                10000
+            );
+
+
+        intervaloChat =
+            setInterval(
+                actualizarChat,
+                5000
+            );
+        window.addEventListener("resize", () => {
+
+    if (window.innerWidth > 700) {
+        document.body.classList.remove("movil-chat-activo");
+    }
+
+    });
+
+    </script>
+
+</body>
+
+</html>
