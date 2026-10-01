@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 inmuebles_db.backup
 inmuebles_export.json
+inmuebles_db.py
+probar_inmuebles.py
