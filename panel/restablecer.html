@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nueva contraseña - Nexa Propiedades</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: #111827;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .descripcion {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #111827;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #111827;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1f2937;
+        }
+
+        .mensaje {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #ffe5e5;
+            color: #b42318;
+            border: 1px solid #f5b5b5;
+        }
+
+        .exito {
+            background: #e8f7ed;
+            color: #18794e;
+            border: 1px solid #a8dfbd;
+        }
+
+        .volver {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #374151;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .volver:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="tarjeta">
+
+        <div class="logo">N</div>
+
+        <h1>Nueva contraseña</h1>
+
+        <p class="descripcion">
+            Crea una nueva contraseña para tu cuenta de
+            Nexa Propiedades.
+        </p>
+
+        <div id="mensaje-error" class="mensaje error"></div>
+        <div id="mensaje-exito" class="mensaje exito"></div>
+
+        <form method="POST" action="/restablecer-password">
+
+            <input
+                type="hidden"
+                name="token"
+                id="token"
+            >
+
+            <div class="campo">
+
+                <label for="password">
+                    Nueva contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Ingresa tu nueva contraseña"
+                    minlength="8"
+                    required
+                >
+
+            </div>
+
+            <div class="campo">
+
+                <label for="confirmar_password">
+                    Confirmar contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmar_password"
+                    name="confirmar_password"
+                    placeholder="Repite tu nueva contraseña"
+                    minlength="8"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                🔐 Cambiar contraseña
+            </button>
+
+        </form>
+
+        <a href="/login" class="volver">
+            ← Regresar al inicio de sesión
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+    const parametros = new URLSearchParams(
+        window.location.search
+    );
+
+    const token = parametros.get("token");
+    const error = parametros.get("error");
+    const mensaje = parametros.get("mensaje");
+
+    const campoToken = document.getElementById("token");
+
+    if (token) {
+        campoToken.value = token;
+    }
+
+    if (error) {
+
+        const elemento = document.getElementById(
+            "mensaje-error"
+        );
+
+        elemento.textContent = error;
+        elemento.style.display = "block";
+    }
+
+    if (mensaje) {
+
+        const elemento = document.getElementById(
+            "mensaje-exito"
+        );
+
+        elemento.textContent = mensaje;
+        elemento.style.display = "block";
+    }
+
+</script>
+
+</body>
+</html>

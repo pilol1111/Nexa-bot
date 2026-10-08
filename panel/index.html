@@ -13,9 +13,9 @@
 
     <style>
 
-        /* =========================================
+        /* =====================================================
            CONFIGURACIÓN GENERAL
-        ========================================= */
+        ===================================================== */
 
         * {
             box-sizing: border-box;
@@ -32,9 +32,9 @@
         }
 
 
-        /* =========================================
-           PANEL IZQUIERDO
-        ========================================= */
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
 
         .sidebar {
             width: 330px;
@@ -44,9 +44,6 @@
             display: flex;
             flex-direction: column;
         }
-
-
-        /* LOGO */
 
         .logo {
             padding: 20px;
@@ -65,23 +62,101 @@
         }
 
 
-        /* CABECERA CONVERSACIONES */
+        /* =====================================================
+           MENU PRINCIPAL
+        ===================================================== */
+
+        .menu-panel {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .menu-boton {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            margin-bottom: 8px;
+            background: #ffffff;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .menu-boton:hover {
+            background: #f3f4f6;
+            transform: translateY(-1px);
+        }
+
+        .menu-boton.activo {
+            background: #111827;
+            color: white;
+            border-color: #111827;
+        }
+
+        .menu-icono {
+            width: 24px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+
+        /* =====================================================
+           CABECERA CONVERSACIONES
+        ===================================================== */
 
         .sidebar-header {
-            padding: 15px;
+            display: block;
+        }
+
+        .sidebar-title {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #eee;
+            justify-content: center;
+            gap: 10px;
+            padding-top: 15px;
+            padding-bottom: 8px;
         }
 
-        .sidebar-header h2 {
-            font-size: 17px;
-            color: #111827;
+        .panel-acciones {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+            padding-bottom: 8px;
+        }
+
+        .btn-logout {
+            width: calc(100% - 20px);
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #7f1d1d;
+            color: white;
+            border: 1px solid #991b1b;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-logout:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
         }
 
 
-        /* BOTÓN ACTUALIZAR */
+        /* =====================================================
+           BOTÓN ACTUALIZAR
+        ===================================================== */
 
         .btn-refresh {
             border: none;
@@ -97,15 +172,14 @@
         }
 
 
-        /* LISTA */
+        /* =====================================================
+           LISTA CONVERSACIONES
+        ===================================================== */
 
         #listaConversaciones {
             flex: 1;
             overflow-y: auto;
         }
-
-
-        /* CONVERSACIÓN */
 
         .conversacion {
             padding: 15px;
@@ -122,17 +196,11 @@
             background: #e5e7eb;
         }
 
-
-        /* NÚMERO */
-
         .numero {
             font-weight: bold;
             color: #111827;
             font-size: 14px;
         }
-
-
-        /* MODO */
 
         .modo {
             display: inline-block;
@@ -153,33 +221,61 @@
             color: #1e40af;
         }
 
-
-        /* MENSAJES NUEVOS */
-
         .badge-nuevos {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-
             min-width: 20px;
             height: 20px;
-
             margin-left: 8px;
             padding: 0 6px;
-
             border-radius: 20px;
-
             background: #dc2626;
             color: white;
-
             font-size: 11px;
             font-weight: bold;
         }
 
 
-        /* =========================================
+        /* =====================================================
+           BOTÓN ASESORES
+        ===================================================== */
+
+        .btn-asesores {
+            width: calc(100% - 20px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            margin: 10px;
+            background: #1f2937;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .btn-asesores:hover {
+            background: #374151;
+            color: white;
+        }
+
+        .icono-asesores {
+            font-size: 17px;
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* =====================================================
            PANEL DERECHO
-        ========================================= */
+        ===================================================== */
 
         .chat {
             flex: 1;
@@ -189,19 +285,40 @@
         }
 
 
-        /* =========================================
-           ENCABEZADO DEL CHAT
-        ========================================= */
+        /* =====================================================
+           PANTALLA INICIAL
+        ===================================================== */
+
+        .sin-seleccion {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6b7280;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .sin-seleccion div {
+            max-width: 400px;
+        }
+
+        .sin-seleccion h2 {
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+
+        /* =====================================================
+           CHAT
+        ===================================================== */
 
         .chat-header {
             min-height: 75px;
-
             background: white;
             border-bottom: 1px solid #ddd;
-
             display: flex;
             align-items: center;
-
             padding: 15px 25px;
         }
 
@@ -213,56 +330,34 @@
         .chat-header span {
             display: inline-block;
             margin-top: 5px;
-
             font-size: 11px;
             font-weight: bold;
-
             padding: 4px 8px;
             border-radius: 10px;
-
             background: #dcfce7;
             color: #166534;
         }
 
 
-        /* =========================================
-           BOTONES DE CONVERSACIÓN
-        ========================================= */
+        /* =====================================================
+           BOTONES CONVERSACIÓN
+        ===================================================== */
 
         .acciones-conversacion {
             background: white;
-
             border-bottom: 1px solid #ddd;
-
             padding: 10px 15px;
-
             display: flex;
             gap: 10px;
         }
 
         .acciones-conversacion button {
             border: none;
-
             padding: 9px 14px;
-
             border-radius: 8px;
-
             cursor: pointer;
-
             font-weight: bold;
             font-size: 13px;
-
-            transition:
-                opacity 0.2s,
-                transform 0.1s;
-        }
-
-        .acciones-conversacion button:hover {
-            opacity: 0.85;
-        }
-
-        .acciones-conversacion button:active {
-            transform: scale(0.98);
         }
 
         #btnTomar {
@@ -276,418 +371,604 @@
         }
 
 
-        /* =========================================
+        /* =====================================================
            HISTORIAL
-        ========================================= */
+        ===================================================== */
 
         #historial {
             flex: 1;
-
             overflow-y: auto;
-
             padding: 25px;
-
             display: flex;
             flex-direction: column;
-
             gap: 10px;
-
             background: #f3f4f6;
         }
 
-
-        /* =========================================
-           MENSAJES
-        ========================================= */
-
         .mensaje {
             max-width: 65%;
-
             padding: 10px 13px;
-
             border-radius: 10px;
-
             line-height: 1.4;
-
             word-wrap: break-word;
-
-            box-shadow:
-                0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-
-
-        /* CLIENTE */
 
         .mensaje.cliente {
             align-self: flex-start;
-
             background: white;
-
             border: 1px solid #ddd;
         }
 
-
-        /* BOT */
-
         .mensaje.bot {
             align-self: flex-end;
-
             background: #dcfce7;
         }
 
-
-        /* ASESOR */
-
         .mensaje.asesor {
             align-self: flex-end;
-
             background: #dbeafe;
         }
 
-
-        /* REMITENTE */
-
         .remitente {
             font-size: 11px;
-
             font-weight: bold;
-
             margin-bottom: 4px;
-
             color: #4b5563;
         }
 
-
-        /* HORA */
-
         .hora {
             font-size: 10px;
-
             color: #6b7280;
-
             margin-top: 5px;
-
             text-align: right;
         }
 
 
-        /* =========================================
-           PANTALLA INICIAL
-        ========================================= */
-
-        .sin-seleccion {
-            flex: 1;
-
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-
-            color: #6b7280;
-
-            text-align: center;
-
-            padding: 30px;
-        }
-
-        .sin-seleccion div {
-            max-width: 400px;
-        }
-
-        .sin-seleccion h2 {
-            margin-bottom: 10px;
-
-            color: #374151;
-        }
-
-
-        /* =========================================
-           NOTIFICACIÓN NUEVOS MENSAJES
-        ========================================= */
-
-        .notificacion-nuevos {
-            position: absolute;
-
-            top: 85px;
-            right: 30px;
-
-            background: #111827;
-            color: white;
-
-            padding: 9px 15px;
-
-            border-radius: 20px;
-
-            font-size: 13px;
-
-            cursor: pointer;
-
-            box-shadow:
-                0 3px 10px rgba(0, 0, 0, 0.2);
-
-            z-index: 10;
-        }
-
-        .notificacion-nuevos:hover {
-            background: #374151;
-        }
-
-
-        /* =========================================
-           ÁREA DE RESPUESTA
-        ========================================= */
+        /* =====================================================
+           RESPUESTA
+        ===================================================== */
 
         .zona-respuesta {
             background: white;
-
             border-top: 1px solid #ddd;
-
             padding: 12px 15px;
-
             display: flex;
-
             gap: 10px;
         }
 
         .zona-respuesta input {
             flex: 1;
-
             padding: 12px;
-
             border: 1px solid #d1d5db;
-
             border-radius: 8px;
-
             outline: none;
-
             font-size: 14px;
-        }
-
-        .zona-respuesta input:focus {
-            border-color: #6b7280;
         }
 
         .zona-respuesta button {
             border: none;
-
             background: #111827;
             color: white;
-
             padding: 0 20px;
-
             border-radius: 8px;
-
             cursor: pointer;
-
             font-size: 14px;
-
             font-weight: bold;
         }
 
-        .zona-respuesta button:hover {
+
+        /* =====================================================
+           NOTIFICACIÓN
+        ===================================================== */
+
+        .notificacion-nuevos {
+            position: absolute;
+            top: 85px;
+            right: 30px;
+            background: #111827;
+            color: white;
+            padding: 9px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+
+        /* =====================================================
+           BOTÓN VOLVER
+        ===================================================== */
+
+        .btn-volver {
+            display: none;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+
+        /* =====================================================
+           CLIENTES
+        ===================================================== */
+
+        #clientesContenido {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            background: #f3f4f6;
+            overflow: hidden;
+        }
+
+        .clientes-header {
+            background: white;
+            padding: 20px 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .clientes-header h2 {
+            color: #111827;
+            margin-bottom: 5px;
+        }
+
+        .clientes-header p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .clientes-toolbar {
+            background: white;
+            padding: 15px 25px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 10px;
+        }
+
+        .clientes-toolbar input {
+            flex: 1;
+            max-width: 500px;
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .btn-nuevo-cliente {
+            border: none;
+            background: #111827;
+            color: white;
+            padding: 0 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-nuevo-cliente:hover {
             background: #374151;
         }
-        /* =========================================
-   BOTÓN VOLVER - MÓVIL
-========================================= */
 
-.btn-volver {
-    display: none;
-    border: none;
-    background: transparent;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 8px;
-}
+        #listaClientes {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 25px;
+        }
+
+        .cliente-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+        .cliente-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .cliente-nombre {
+            font-size: 16px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .cliente-telefono {
+            color: #4b5563;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .cliente-dato {
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .cliente-notas {
+            background: #f9fafb;
+            padding: 10px;
+            margin-top: 12px;
+            border-radius: 7px;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .cliente-estado {
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .estado-activo {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .estado-inactivo {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .cliente-acciones {
+            display: flex;
+            gap: 7px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .cliente-acciones button,
+        .cliente-acciones a {
+            border: none;
+            padding: 8px 11px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-whatsapp {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .btn-llamar {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .btn-editar {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-eliminar {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-estado {
+            background: #fef3c7;
+            color: #92400e;
+        }
 
 
-/* =========================================
-   RESPONSIVE PARA CELULAR
-========================================= */
+        /* =====================================================
+           MODAL
+        ===================================================== */
 
-@media (max-width: 700px) {
+        .modal-fondo {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
 
-    body {
-        height: 100dvh;
-        min-height: 100dvh;
-        overflow: hidden;
-    }
+        .modal {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
 
-    /* Lista de conversaciones */
-    .sidebar {
-        width: 100%;
-        min-width: 100%;
-        border-right: none;
-    }
+        .modal h2 {
+            margin-bottom: 18px;
+            color: #111827;
+        }
 
-    /* Chat oculto mientras estamos en la lista */
-    .chat {
-        display: none;
-        width: 100%;
-        min-width: 100%;
-    }
+        .campo {
+            margin-bottom: 13px;
+        }
 
-    /* Cuando hay una conversación seleccionada */
-    body.movil-chat-activo .sidebar {
-        display: none;
-    }
+        .campo label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #374151;
+            margin-bottom: 5px;
+        }
 
-    body.movil-chat-activo .chat {
-        display: flex;
-    }
+        .campo input,
+        .campo select,
+        .campo textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            outline: none;
+            font-size: 13px;
+        }
 
-    /* Botón volver */
-    .btn-volver {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .campo textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
 
-    /* Encabezado */
-    .chat-header {
-        min-height: 65px;
-        padding: 10px 15px;
-        gap: 10px;
-    }
+        .modal-botones {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 18px;
+        }
 
-    /* Botones de conversación */
-    .acciones-conversacion {
-        padding: 8px;
-        gap: 6px;
-    }
+        .modal-botones button {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-    .acciones-conversacion button {
-        flex: 1;
-        font-size: 12px;
-        padding: 10px 6px;
-    }
+        .btn-cancelar {
+            background: #e5e7eb;
+            color: #374151;
+        }
 
-    /* Mensajes */
-    .mensaje {
-        max-width: 85%;
-    }
-
-    #historial {
-        padding: 15px 10px 10px;
-    }
-
-    /* Zona para escribir */
-    .zona-respuesta {
-        padding: 8px;
-    }
-
-    .zona-respuesta input {
-        min-width: 0;
-    }
-
-    .zona-respuesta button {
-        padding: 0 14px;
-    }
-
-    /* Notificación */
-    .notificacion-nuevos {
-        top: 75px;
-        right: 15px;
-    }
-}
+        .btn-guardar {
+            background: #111827;
+            color: white;
+        }
 
 
-        /* =========================================
-          COMPORTAMIENTO EN PC
-        ========================================= */
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body {
+                height: 100dvh;
+                min-height: 100dvh;
+                overflow: hidden;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: 100%;
+                border-right: none;
+            }
+
+            .chat {
+                display: none;
+                width: 100%;
+                min-width: 100%;
+            }
+
+            body.movil-chat-activo .sidebar {
+                display: none;
+            }
+
+            body.movil-chat-activo .chat {
+                display: flex;
+            }
+
+            .btn-volver {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .chat-header {
+                min-height: 65px;
+                padding: 10px 15px;
+                gap: 10px;
+            }
+
+            .acciones-conversacion {
+                padding: 8px;
+                gap: 6px;
+            }
+
+            .acciones-conversacion button {
+                flex: 1;
+                font-size: 12px;
+                padding: 10px 6px;
+            }
+
+            .mensaje {
+                max-width: 85%;
+            }
+
+            #historial {
+                padding: 15px 10px 10px;
+            }
+
+            .zona-respuesta {
+                padding: 8px;
+            }
+
+            .zona-respuesta input {
+                min-width: 0;
+            }
+
+            .zona-respuesta button {
+                padding: 0 14px;
+            }
+
+            .notificacion-nuevos {
+                top: 75px;
+                right: 15px;
+            }
+
+            .clientes-header {
+                padding: 15px;
+            }
+
+            .clientes-toolbar {
+                padding: 10px 15px;
+            }
+
+            #listaClientes {
+                padding: 15px;
+            }
+
+            .clientes-toolbar {
+                flex-direction: column;
+            }
+
+            .clientes-toolbar input {
+                max-width: none;
+                width: 100%;
+            }
+
+            .btn-nuevo-cliente {
+                height: 42px;
+            }
+        }
 
         @media (min-width: 701px) {
 
-     body.movil-chat-activo .sidebar,
-      body.movil-chat-activo .chat {
-        display: flex;
-    }
-}
+            body.movil-chat-activo .sidebar,
+            body.movil-chat-activo .chat {
+                display: flex;
+            }
+        }
 
 
-        /* =========================================
-           SCROLLBAR
-        ========================================= */
+        /* =====================================================
+           SCROLLBARS
+        ===================================================== */
 
         #listaConversaciones::-webkit-scrollbar,
-        #historial::-webkit-scrollbar {
+        #historial::-webkit-scrollbar,
+        #listaClientes::-webkit-scrollbar {
             width: 7px;
         }
 
         #listaConversaciones::-webkit-scrollbar-thumb,
-        #historial::-webkit-scrollbar-thumb {
+        #historial::-webkit-scrollbar-thumb,
+        #listaClientes::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 10px;
         }
 
-        #listaConversaciones::-webkit-scrollbar-thumb:hover,
-        #historial::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-
-        /* =========================================
-           RESPONSIVE BASE
-           
-           NO ES TODAVÍA LA FASE 2.
-           Solo dejamos preparada la estructura.
-        ========================================= */
-
-        @media (max-width: 900px) {
-
-            .sidebar {
-                width: 280px;
-                min-width: 280px;
-            }
-
-            .mensaje {
-                max-width: 75%;
-            }
-
-        }
-
-
     </style>
-
 </head>
 
 
 <body>
 
 
-    <!-- =========================================
-         LISTA DE CONVERSACIONES
-    ========================================= -->
+    <!-- =====================================================
+         SIDEBAR
+    ===================================================== -->
 
     <aside class="sidebar">
 
         <div class="logo">
 
-            <h1>
-                🏠 Nexa Propiedades
-            </h1>
+            <h1>🏠 Nexa Propiedades</h1>
 
-            <p>
-                Panel de asesores
-            </p>
+            <p>Panel de asesores</p>
 
         </div>
 
 
-        <div class="sidebar-header">
+        <!-- MENU -->
 
-            <h2>
-                Conversaciones
-            </h2>
+        <div class="menu-panel">
 
             <button
+                id="btnMenuConversaciones"
+                class="menu-boton activo"
                 type="button"
-                class="btn-refresh"
-                onclick="cargarConversaciones()"
-                title="Actualizar conversaciones"
+                onclick="mostrarConversaciones()"
             >
-                🔄
+                <span class="menu-icono">💬</span>
+                <span>Conversaciones</span>
+            </button>
+
+
+            <button
+                id="btnMenuClientes"
+                class="menu-boton"
+                type="button"
+                onclick="mostrarClientes()"
+            >
+                <span class="menu-icono">👤</span>
+                <span>Clientes</span>
+            </button>
+
+        </div>
+
+
+        <!-- CABECERA CONVERSACIONES -->
+
+        <div
+            id="sidebarConversaciones"
+            class="sidebar-header"
+        >
+
+            <div class="sidebar-title">
+
+                <h2>Conversaciones</h2>
+
+                <button
+                    type="button"
+                    class="btn-refresh"
+                    onclick="cargarConversaciones()"
+                    title="Actualizar conversaciones"
+                >
+                    🔄
+                </button>
+
+            </div>
+
+
+            <div class="panel-acciones">
+
+                <button
+                    class="btn-logout"
+                    type="button"
+                    onclick="window.location.href='/logout'"
+                >
+                    🚪 Cerrar sesión
+                </button>
+
+            </div>
+
+
+            <button
+                class="btn-asesores"
+                type="button"
+                onclick="window.location.href='/panel/asesores'"
+            >
+                <span class="icono-asesores">👥</span>
+                <span>Asesores</span>
             </button>
 
         </div>
@@ -695,7 +976,7 @@
 
         <div id="listaConversaciones">
 
-            <p style="padding: 20px;">
+            <p style="padding:20px;">
                 Cargando conversaciones...
             </p>
 
@@ -705,14 +986,16 @@
 
 
 
-    <!-- =========================================
-         CHAT
-    ========================================= -->
+    <!-- =====================================================
+         PANEL DERECHO
+    ===================================================== -->
 
     <main class="chat">
 
 
-        <!-- PANTALLA INICIAL -->
+        <!-- =================================================
+             PANTALLA INICIAL
+        ================================================= -->
 
         <div
             id="pantallaInicial"
@@ -721,9 +1004,7 @@
 
             <div>
 
-                <h2>
-                    💬 Panel de conversaciones
-                </h2>
+                <h2>💬 Panel de conversaciones</h2>
 
                 <p>
                     Selecciona una conversación para
@@ -736,29 +1017,28 @@
 
 
 
-        <!-- CONTENIDO DEL CHAT -->
+        <!-- =================================================
+             CONTENIDO CHAT
+        ================================================= -->
 
         <div
             id="chatContenido"
             style="
-                display: none;
-                height: 100%;
-                flex-direction: column;
+                display:none;
+                height:100%;
+                flex-direction:column;
             "
         >
 
-
-            <!-- ENCABEZADO -->
-
             <div class="chat-header">
-                
+
                 <button
-                id="btnVolverChats"
-                  class="btn-volver"
-                  type="button"
-                onclick="volverConversaciones()"
-                    >
-                ← Chats
+                    id="btnVolverChats"
+                    class="btn-volver"
+                    type="button"
+                    onclick="volverConversaciones()"
+                >
+                    ← Chats
                 </button>
 
                 <div>
@@ -775,9 +1055,6 @@
 
             </div>
 
-
-
-            <!-- BOTONES -->
 
             <div class="acciones-conversacion">
 
@@ -801,28 +1078,18 @@
             </div>
 
 
-
-            <!-- NOTIFICACIÓN -->
-
             <div
                 id="notificacionNuevos"
                 class="notificacion-nuevos"
-                style="display: none;"
+                style="display:none;"
                 onclick="irAlUltimoMensaje()"
             >
                 🔔 Nuevos mensajes
             </div>
 
 
+            <div id="historial"></div>
 
-            <!-- HISTORIAL -->
-
-            <div id="historial">
-            </div>
-
-
-
-            <!-- RESPUESTA -->
 
             <div class="zona-respuesta">
 
@@ -844,6 +1111,57 @@
 
             </div>
 
+        </div>
+
+
+
+        <!-- =================================================
+             CLIENTES
+        ================================================= -->
+
+        <div id="clientesContenido">
+
+
+            <div class="clientes-header">
+
+                <h2>👤 Clientes</h2>
+
+                <p>
+                    Administra los clientes registrados
+                    en Nexa Propiedades.
+                </p>
+
+            </div>
+
+
+            <div class="clientes-toolbar">
+
+                <input
+                    type="text"
+                    id="buscarClienteInput"
+                    placeholder="🔎 Buscar por nombre, teléfono o correo..."
+                    oninput="buscarClientes()"
+                >
+
+
+                <button
+                    type="button"
+                    class="btn-nuevo-cliente"
+                    onclick="abrirModalNuevoCliente()"
+                >
+                    ➕ Nuevo cliente
+                </button>
+
+            </div>
+
+
+            <div id="listaClientes">
+
+                <p>
+                    Cargando clientes...
+                </p>
+
+            </div>
 
         </div>
 
@@ -851,12 +1169,177 @@
 
 
 
+    <!-- =====================================================
+         MODAL CLIENTE
+    ===================================================== -->
+
+    <div
+        id="modalCliente"
+        class="modal-fondo"
+    >
+
+        <div class="modal">
+
+            <h2 id="tituloModalCliente">
+                ➕ Nuevo cliente
+            </h2>
+
+
+            <input
+                type="hidden"
+                id="clienteId"
+            >
+
+
+            <div class="campo">
+
+                <label>
+                    Nombre *
+                </label>
+
+                <input
+                    type="text"
+                    id="clienteNombre"
+                    placeholder="Nombre completo"
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>
+                    Teléfono *
+                </label>
+
+                <input
+                    type="text"
+                    id="clienteTelefono"
+                    placeholder="+57 300 000 0000"
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>
+                    Correo
+                </label>
+
+                <input
+                    type="email"
+                    id="clienteCorreo"
+                    placeholder="correo@ejemplo.com"
+                >
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>
+                    Tipo de cliente
+                </label>
+
+                <select id="clienteTipo">
+
+                    <option value="">
+                        Seleccionar
+                    </option>
+
+                    <option value="Compra">
+                        Compra
+                    </option>
+
+                    <option value="Arriendo">
+                        Arriendo
+                    </option>
+
+                    <option value="Propietario">
+                        Propietario
+                    </option>
+
+                    <option value="Compra y arriendo">
+                        Compra y arriendo
+                    </option>
+
+                    <option value="Otro">
+                        Otro
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>
+                    Notas
+                </label>
+
+                <textarea
+                    id="clienteNotas"
+                    placeholder="Información adicional del cliente..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="campo">
+
+                <label>
+                    Estado
+                </label>
+
+                <select id="clienteEstado">
+
+                    <option value="Activo">
+                        Activo
+                    </option>
+
+                    <option value="Inactivo">
+                        Inactivo
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-botones">
+
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    onclick="cerrarModalCliente()"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-guardar"
+                    onclick="guardarCliente()"
+                >
+                    💾 Guardar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
     <script>
 
-
-        /* =========================================
+        /* =====================================================
            VARIABLES
-        ========================================= */
+        ===================================================== */
 
         let conversacionSeleccionada = null;
 
@@ -866,11 +1349,12 @@
 
         let intervaloChat = null;
 
+        let modoClientesActivo = false;
 
 
-        /* =========================================
-           CARGAR CONVERSACIONES
-        ========================================= */
+        /* =====================================================
+           CONVERSACIONES
+        ===================================================== */
 
         async function cargarConversaciones() {
 
@@ -879,14 +1363,12 @@
                     "listaConversaciones"
                 );
 
-
             try {
 
                 const respuesta =
                     await fetch(
                         "/panel/conversaciones"
                     );
-
 
                 if (!respuesta.ok) {
 
@@ -897,29 +1379,24 @@
 
                 }
 
-
                 const datos =
                     await respuesta.json();
 
-
                 lista.innerHTML = "";
-
 
                 if (
                     !datos.conversaciones ||
                     datos.conversaciones.length === 0
                 ) {
 
-                    lista.innerHTML =
-                        `
-                            <p style="padding:20px;">
-                                No hay conversaciones.
-                            </p>
-                        `;
+                    lista.innerHTML = `
+                        <p style="padding:20px;">
+                            No hay conversaciones.
+                        </p>
+                    `;
 
                     return;
                 }
-
 
 
                 datos.conversaciones.forEach(
@@ -931,16 +1408,8 @@
                         const modo =
                             conversacion[1];
 
-                        const fecha =
-                            conversacion[2];
-
                         const ultimoMensajeId =
                             conversacion[3];
-
-
-                        /* =================================
-                           MENSAJES NUEVOS
-                        ================================= */
 
                         let mensajesNuevos = 0;
 
@@ -967,16 +1436,8 @@
                             ultimoMensajeId;
 
 
-
-                        /* =================================
-                           ELEMENTO
-                        ================================= */
-
                         const elemento =
-                            document.createElement(
-                                "div"
-                            );
-
+                            document.createElement("div");
 
                         elemento.classList.add(
                             "conversacion"
@@ -995,19 +1456,17 @@
                         }
 
 
-
                         const modoClase =
                             modo === "ASESOR"
                                 ? "asesor"
                                 : "bot";
 
 
-
                         elemento.innerHTML = `
 
                             <div class="numero">
 
-                                📱 ${numero}
+                                📱 ${escaparHTML(numero)}
 
                                 ${
                                     mensajesNuevos > 0 &&
@@ -1024,34 +1483,29 @@
 
                             </div>
 
-
                             <span class="modo ${modoClase}">
-                                ${modo}
+                                ${escaparHTML(modo)}
                             </span>
 
                         `;
 
 
-
                         elemento.onclick = () => {
 
-                            cargarHistorial(
-                                numero
-                            );
+                            mostrarConversaciones();
+
+                            cargarHistorial(numero);
 
                         };
 
 
-
-                        lista.appendChild(
-                            elemento
-                        );
+                        lista.appendChild(elemento);
 
                     }
                 );
 
-
             }
+
             catch (error) {
 
                 console.error(
@@ -1059,9 +1513,7 @@
                     error
                 );
 
-
                 lista.innerHTML = `
-
                     <p
                         style="
                             padding:20px;
@@ -1070,7 +1522,6 @@
                     >
                         ❌ Error cargando conversaciones.
                     </p>
-
                 `;
 
             }
@@ -1078,25 +1529,25 @@
         }
 
 
-
-        /* =========================================
-           CARGAR HISTORIAL
-        ========================================= */
+        /* =====================================================
+           HISTORIAL
+        ===================================================== */
 
         async function cargarHistorial(
             numero,
             limpiarNotificacion = true
         ) {
 
-
             conversacionSeleccionada =
                 numero;
 
-                conversacionSeleccionada = numero;
+            if (window.innerWidth <= 700) {
 
-                if (window.innerWidth <= 700) {
-                document.body.classList.add("movil-chat-activo");
-                } 
+                document.body.classList.add(
+                    "movil-chat-activo"
+                );
+
+            }
 
 
             const chatContenido =
@@ -1104,26 +1555,23 @@
                     "chatContenido"
                 );
 
+            const pantallaInicial =
+                document.getElementById(
+                    "pantallaInicial"
+                );
 
 
             pantallaInicial.style.display =
                 "none";
 
-
             chatContenido.style.display =
                 "flex";
-
-
-            chatContenido.style.flexDirection =
-                "column";
-
 
 
             document.getElementById(
                 "numeroCliente"
             ).textContent =
                 "📱 " + numero;
-
 
 
             const historial =
@@ -1136,12 +1584,11 @@
                 "<p>Cargando mensajes...</p>";
 
 
-
             try {
 
                 const respuesta =
                     await fetch(
-                        `/panel/conversaciones/${numero}`
+                        `/panel/conversaciones/${encodeURIComponent(numero)}`
                     );
 
 
@@ -1162,7 +1609,6 @@
                 historial.innerHTML = "";
 
 
-
                 if (
                     !datos.mensajes ||
                     datos.mensajes.length === 0
@@ -1176,20 +1622,8 @@
                 }
 
 
-
                 datos.mensajes.forEach(
                     mensaje => {
-
-
-                        /*
-                            0 = id_mensaje
-                            1 = numero_cliente
-                            2 = remitente
-                            3 = mensaje
-                            4 = fecha_hora
-                            5 = asesor_id
-                        */
-
 
                         const remitente =
                             mensaje[2];
@@ -1201,7 +1635,6 @@
                             mensaje[4];
 
 
-
                         let clase =
                             "cliente";
 
@@ -1209,59 +1642,32 @@
                             "👤 Cliente";
 
 
-
                         if (
                             remitente &&
-                            remitente.toLowerCase() ===
-                            "bot"
+                            remitente.toLowerCase() === "bot"
                         ) {
 
-                            clase =
-                                "bot";
+                            clase = "bot";
 
-                            nombre =
-                                "🤖 Bot";
+                            nombre = "🤖 Bot";
 
                         }
 
 
-
                         if (
                             remitente &&
-                            remitente.toLowerCase() ===
-                            "asesor"
+                            remitente.toLowerCase() === "asesor"
                         ) {
 
-                            clase =
-                                "asesor";
+                            clase = "asesor";
 
-                            nombre =
-                                "👨‍💼 Asesor";
+                            nombre = "👨‍💼 Asesor";
 
                         }
-
-
-
-                        if (
-                            remitente &&
-                            remitente.toLowerCase() ===
-                            "cliente"
-                        ) {
-
-                            clase =
-                                "cliente";
-
-                            nombre =
-                                "👤 Cliente";
-
-                        }
-
 
 
                         const elemento =
-                            document.createElement(
-                                "div"
-                            );
+                            document.createElement("div");
 
 
                         elemento.dataset.id =
@@ -1274,10 +1680,7 @@
                         );
 
 
-
-                        let fechaFormateada =
-                            "";
-
+                        let fechaFormateada = "";
 
 
                         if (fecha) {
@@ -1289,7 +1692,6 @@
                                 );
 
                         }
-
 
 
                         elemento.innerHTML = `
@@ -1309,7 +1711,6 @@
                         `;
 
 
-
                         historial.appendChild(
                             elemento
                         );
@@ -1317,11 +1718,6 @@
                     }
                 );
 
-
-
-                /* =================================
-                   ACTUALIZAR MODO
-                ================================= */
 
                 const modo =
                     datos.modo || "BOT";
@@ -1349,11 +1745,6 @@
                         : "#166534";
 
 
-
-                /* =================================
-                   NOTIFICACIÓN
-                ================================= */
-
                 if (limpiarNotificacion) {
 
                     ocultarNotificacionNuevos();
@@ -1361,29 +1752,19 @@
                 }
 
 
-
-                /* =================================
-                   IR AL ÚLTIMO MENSAJE
-                ================================= */
-
                 historial.scrollTop =
                     historial.scrollHeight;
 
-
             }
+
             catch (error) {
 
                 console.error(error);
 
-
                 historial.innerHTML = `
-
                     <p style="color:red;">
-
                         ❌ Error cargando el historial.
-
                     </p>
-
                 `;
 
             }
@@ -1391,13 +1772,11 @@
         }
 
 
-
-        /* =========================================
+        /* =====================================================
            TOMAR CONVERSACIÓN
-        ========================================= */
+        ===================================================== */
 
         async function tomarConversacion() {
-
 
             if (!conversacionSeleccionada) {
 
@@ -1408,7 +1787,6 @@
                 return;
 
             }
-
 
 
             try {
@@ -1428,13 +1806,13 @@
                                 numero:
                                     conversacionSeleccionada
                             })
+
                         }
                     );
 
 
                 const datos =
                     await respuesta.json();
-
 
 
                 if (
@@ -1452,15 +1830,14 @@
                 }
 
 
-
                 await cargarConversaciones();
 
                 await cargarHistorial(
                     conversacionSeleccionada
                 );
 
-
             }
+
             catch (error) {
 
                 console.error(error);
@@ -1474,13 +1851,11 @@
         }
 
 
-
-        /* =========================================
+        /* =====================================================
            DEVOLVER AL BOT
-        ========================================= */
+        ===================================================== */
 
         async function devolverAlBot() {
-
 
             if (!conversacionSeleccionada) {
 
@@ -1491,7 +1866,6 @@
                 return;
 
             }
-
 
 
             try {
@@ -1511,13 +1885,13 @@
                                 numero:
                                     conversacionSeleccionada
                             })
+
                         }
                     );
 
 
                 const datos =
                     await respuesta.json();
-
 
 
                 if (
@@ -1535,15 +1909,14 @@
                 }
 
 
-
                 await cargarConversaciones();
 
                 await cargarHistorial(
                     conversacionSeleccionada
                 );
 
-
             }
+
             catch (error) {
 
                 console.error(error);
@@ -1557,55 +1930,11 @@
         }
 
 
-
-        /* =========================================
-           SEGURIDAD HTML
-        ========================================= */
-
-        function escaparHTML(texto) {
-
-            if (!texto) {
-                return "";
-            }
-
-
-            return String(texto)
-
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
-
-        }
-
-
-
-        /* =========================================
-           ENVIAR MENSAJE DESDE PANEL
-        ========================================= */
+        /* =====================================================
+           ENVIAR MENSAJE
+        ===================================================== */
 
         async function enviarMensajePanel() {
-
 
             if (!conversacionSeleccionada) {
 
@@ -1618,7 +1947,6 @@
             }
 
 
-
             const input =
                 document.getElementById(
                     "mensajeInput"
@@ -1629,11 +1957,11 @@
                 input.value.trim();
 
 
-
             if (!mensaje) {
-                return;
-            }
 
+                return;
+
+            }
 
 
             try {
@@ -1667,7 +1995,6 @@
                     await respuesta.json();
 
 
-
                 if (
                     !respuesta.ok ||
                     !datos.ok
@@ -1683,7 +2010,6 @@
                 }
 
 
-
                 input.value = "";
 
 
@@ -1694,8 +2020,8 @@
 
                 input.focus();
 
-
             }
+
             catch (error) {
 
                 console.error(error);
@@ -1709,16 +2035,13 @@
         }
 
 
-
-        /* =========================================
-           ENTER PARA ENVIAR
-        ========================================= */
+        /* =====================================================
+           ENTER
+        ===================================================== */
 
         function manejarEnter(event) {
 
-            if (
-                event.key === "Enter"
-            ) {
+            if (event.key === "Enter") {
 
                 event.preventDefault();
 
@@ -1729,36 +2052,39 @@
         }
 
 
-
-        /* =========================================
-           ACTUALIZAR CHAT AUTOMÁTICAMENTE
-        ========================================= */
+        /* =====================================================
+           ACTUALIZAR CHAT
+        ===================================================== */
 
         async function actualizarChat() {
 
+            if (
+                !conversacionSeleccionada ||
+                modoClientesActivo
+            ) {
 
-            if (!conversacionSeleccionada) {
                 return;
-            }
 
+            }
 
 
             try {
 
                 const respuesta =
                     await fetch(
-                        `/panel/conversaciones/${conversacionSeleccionada}`
+                        `/panel/conversaciones/${encodeURIComponent(conversacionSeleccionada)}`
                     );
 
 
                 if (!respuesta.ok) {
+
                     return;
+
                 }
 
 
                 const datos =
                     await respuesta.json();
-
 
 
                 if (
@@ -1771,7 +2097,6 @@
                 }
 
 
-
                 const ultimoMensaje =
                     datos.mensajes[
                         datos.mensajes.length - 1
@@ -1780,7 +2105,6 @@
 
                 const ultimoId =
                     ultimoMensaje[0];
-
 
 
                 const historial =
@@ -1793,10 +2117,7 @@
                     historial.lastElementChild;
 
 
-
-                let ultimoIdMostrado =
-                    null;
-
+                let ultimoIdMostrado = null;
 
 
                 if (ultimoElemento) {
@@ -1807,19 +2128,15 @@
                 }
 
 
-
                 if (
                     ultimoIdMostrado &&
                     Number(ultimoId) >
                     Number(ultimoIdMostrado)
                 ) {
 
-
                     mostrarNotificacionNuevos();
 
-
                     reproducirNotificacion();
-
 
                     await cargarHistorial(
                         conversacionSeleccionada,
@@ -1829,6 +2146,7 @@
                 }
 
             }
+
             catch (error) {
 
                 console.error(
@@ -1841,48 +2159,27 @@
         }
 
 
-
-        /* =========================================
-           MOSTRAR NOTIFICACIÓN
-        ========================================= */
+        /* =====================================================
+           NOTIFICACIONES
+        ===================================================== */
 
         function mostrarNotificacionNuevos() {
 
-            const notificacion =
-                document.getElementById(
-                    "notificacionNuevos"
-                );
-
-
-            notificacion.style.display =
-                "block";
+            document.getElementById(
+                "notificacionNuevos"
+            ).style.display = "block";
 
         }
 
-
-
-        /* =========================================
-           OCULTAR NOTIFICACIÓN
-        ========================================= */
 
         function ocultarNotificacionNuevos() {
 
-            const notificacion =
-                document.getElementById(
-                    "notificacionNuevos"
-                );
-
-
-            notificacion.style.display =
-                "none";
+            document.getElementById(
+                "notificacionNuevos"
+            ).style.display = "none";
 
         }
 
-
-
-        /* =========================================
-           IR AL ÚLTIMO MENSAJE
-        ========================================= */
 
         function irAlUltimoMensaje() {
 
@@ -1901,11 +2198,6 @@
         }
 
 
-
-        /* =========================================
-           SONIDO DE NOTIFICACIÓN
-        ========================================= */
-
         function reproducirNotificacion() {
 
             try {
@@ -1915,12 +2207,10 @@
                         "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA="
                     );
 
-
-                audio
-                    .play()
-                    .catch(() => {});
+                audio.play().catch(() => {});
 
             }
+
             catch (error) {
 
                 console.log(
@@ -1931,33 +2221,1191 @@
 
         }
 
+
+        /* =====================================================
+           VOLVER CONVERSACIONES
+        ===================================================== */
+
         function volverConversaciones() {
 
-    document.body.classList.remove("movil-chat-activo");
+            document.body.classList.remove(
+                "movil-chat-activo"
+            );
 
-    conversacionSeleccionada = null;
+            conversacionSeleccionada =
+                null;
 
-    document.getElementById("chatContenido").style.display = "none";
-    document.getElementById("pantallaInicial").style.display = "flex";
+            document.getElementById(
+                "chatContenido"
+            ).style.display = "none";
 
-    ocultarNotificacionNuevos();
-   }
 
-        /* =========================================
+            document.getElementById(
+                "pantallaInicial"
+            ).style.display = "flex";
+
+
+            ocultarNotificacionNuevos();
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR CONVERSACIONES
+        ===================================================== */
+
+        function mostrarConversaciones() {
+
+            modoClientesActivo = false;
+
+
+            document.getElementById(
+                "btnMenuConversaciones"
+            ).classList.add("activo");
+
+
+            document.getElementById(
+                "btnMenuClientes"
+            ).classList.remove("activo");
+
+
+            document.getElementById(
+                "sidebarConversaciones"
+            ).style.display = "block";
+
+
+            document.getElementById(
+                "listaConversaciones"
+            ).style.display = "block";
+
+
+            document.getElementById(
+                "clientesContenido"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "pantallaInicial"
+            ).style.display = "flex";
+
+
+            document.getElementById(
+                "chatContenido"
+            ).style.display = "none";
+
+
+            if (window.innerWidth <= 700) {
+
+                document.body.classList.remove(
+                    "movil-chat-activo"
+                );
+
+            }
+
+
+            cargarConversaciones();
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR CLIENTES
+        ===================================================== */
+
+        function mostrarClientes() {
+
+            modoClientesActivo = true;
+
+
+            document.getElementById(
+                "btnMenuConversaciones"
+            ).classList.remove("activo");
+
+
+            document.getElementById(
+                "btnMenuClientes"
+            ).classList.add("activo");
+
+
+            document.getElementById(
+                "sidebarConversaciones"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "listaConversaciones"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "pantallaInicial"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "chatContenido"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "clientesContenido"
+            ).style.display = "flex";
+
+
+            document.body.classList.remove(
+                "movil-chat-activo"
+            );
+
+
+            cargarClientes();
+
+        }
+
+
+        /* =====================================================
+           CARGAR CLIENTES
+        ===================================================== */
+
+        async function cargarClientes() {
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "/panel/api/clientes"
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    throw new Error(
+                        datos.error ||
+                        "No se pudieron cargar los clientes."
+                    );
+
+                }
+
+
+                mostrarListaClientes(
+                    datos.clientes
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                document.getElementById(
+                    "listaClientes"
+                ).innerHTML = `
+
+                    <p style="color:red;">
+                        ❌ Error cargando clientes.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           BUSCAR CLIENTES
+        ===================================================== */
+
+        async function buscarClientes() {
+
+            const texto =
+                document.getElementById(
+                    "buscarClienteInput"
+                ).value.trim();
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        `/panel/api/clientes/buscar?q=${encodeURIComponent(texto)}`
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    throw new Error(
+                        datos.error ||
+                        "Error buscando clientes."
+                    );
+
+                }
+
+
+                mostrarListaClientes(
+                    datos.clientes
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           MOSTRAR LISTA CLIENTES
+        ===================================================== */
+
+        function mostrarListaClientes(clientes) {
+
+            const lista =
+                document.getElementById(
+                    "listaClientes"
+                );
+
+
+            lista.innerHTML = "";
+
+
+            if (
+                !clientes ||
+                clientes.length === 0
+            ) {
+
+                lista.innerHTML = `
+
+                    <div
+                        style="
+                            background:white;
+                            padding:30px;
+                            border-radius:10px;
+                            text-align:center;
+                            color:#6b7280;
+                        "
+                    >
+
+                        <h3>
+                            👤 No hay clientes
+                        </h3>
+
+                        <p style="margin-top:8px;">
+                            Puedes registrar uno con
+                            "Nuevo cliente".
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            clientes.forEach(cliente => {
+
+                const tarjeta =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                tarjeta.className =
+                    "cliente-card";
+
+
+                const estado =
+                    cliente.estado ||
+                    "Activo";
+
+
+                const claseEstado =
+                    estado === "Activo"
+                        ? "estado-activo"
+                        : "estado-inactivo";
+
+
+                const telefonoLimpio =
+    String(
+        cliente.telefono || ""
+    ).replace(
+        /\D/g,
+        ""
+    );
+
+
+/*
+   Normalizar teléfono colombiano
+   3001234567 → 573001234567
+   573001234567 → 573001234567
+*/
+
+let telefonoColombia =
+    telefonoLimpio;
+
+
+if (
+    telefonoColombia.length === 10 &&
+    telefonoColombia.startsWith("3")
+) {
+
+    telefonoColombia =
+        "57" + telefonoColombia;
+
+}
+
+
+const telefonoWhatsApp =
+    telefonoColombia;
+
+
+                tarjeta.innerHTML = `
+
+                    <div class="cliente-card-header">
+
+                        <div>
+
+                            <div class="cliente-nombre">
+
+                                👤
+                                ${escaparHTML(
+                                    cliente.nombre
+                                )}
+
+                            </div>
+
+                            <div class="cliente-telefono">
+
+                                📱
+                                ${escaparHTML(
+                                    cliente.telefono
+                                )}
+
+                            </div>
+
+                            ${
+                                cliente.correo
+                                ?
+                                `
+                                    <div class="cliente-dato">
+                                        ✉️
+                                        ${escaparHTML(
+                                            cliente.correo
+                                        )}
+                                    </div>
+                                `
+                                :
+                                ""
+                            }
+
+                            ${
+                                cliente.tipo_cliente
+                                ?
+                                `
+                                    <div class="cliente-dato">
+                                        🏷️
+                                        ${escaparHTML(
+                                            cliente.tipo_cliente
+                                        )}
+                                    </div>
+                                `
+                                :
+                                ""
+                            }
+
+                        </div>
+
+
+                        <span
+                            class="cliente-estado ${claseEstado}"
+                        >
+                            ${escaparHTML(estado)}
+                        </span>
+
+                    </div>
+
+
+                    ${
+                        cliente.notas
+                        ?
+                        `
+                            <div class="cliente-notas">
+
+                                📝
+                                ${escaparHTML(
+                                    cliente.notas
+                                )}
+
+                            </div>
+                        `
+                        :
+                        ""
+                    }
+
+
+                    <div class="cliente-acciones">
+
+                        <a
+                        type="button"
+                        class="btn-whatsapp"
+                        onclick="enviarWhatsAppCliente(
+        '${telefonoWhatsApp}',
+        '${escaparHTML(cliente.nombre).replace(/'/g, "\\'")}'
+    )"
+>
+    💬 WhatsApp
+</a>
+
+
+<a
+    class="btn-llamar"
+    href="tel:+${telefonoColombia}"
+>
+    📞 Llamar
+</a>
+
+                        <button
+                            class="btn-editar"
+                            onclick="editarCliente(
+                                ${cliente.id}
+                            )"
+                        >
+                            ✏️ Editar
+                        </button>
+
+
+                        <button
+                            class="btn-estado"
+                            onclick="cambiarEstadoCliente(
+                                ${cliente.id},
+                                '${estado === "Activo"
+                                    ? "Inactivo"
+                                    : "Activo"}'
+                            )"
+                        >
+                            ${
+                                estado === "Activo"
+                                    ? "🔴 Desactivar"
+                                    : "🟢 Activar"
+                            }
+                        </button>
+
+
+                        <button
+                            class="btn-eliminar"
+                            onclick="eliminarCliente(
+                                ${cliente.id}
+                            )"
+                        >
+                            🗑️ Eliminar
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                lista.appendChild(
+                    tarjeta
+                );
+
+            });
+
+        }
+        /* =====================================================
+            ENVIAR WHATSAPP DESDE NEXA
+        ===================================================== */
+
+async function enviarWhatsAppCliente(numero, nombre) {
+
+    const mensaje = prompt(
+        `💬 Mensaje para ${nombre}:`
+    );
+
+    if (mensaje === null) {
+        return;
+    }
+
+    const mensajeLimpio = mensaje.trim();
+
+    if (!mensajeLimpio) {
+        alert("⚠️ Escribe un mensaje antes de enviar.");
+        return;
+    }
+
+    try {
+
+        const respuesta = await fetch(
+            "/panel/enviar",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    numero: numero,
+                    mensaje: mensajeLimpio
+                })
+            }
+        );
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (
+            !respuesta.ok ||
+            !datos.ok
+        ) {
+
+            alert(
+                "❌ " +
+                (
+                    datos.error ||
+                    "No se pudo enviar el mensaje."
+                )
+            );
+
+            return;
+        }
+
+
+        alert(
+            "✅ Mensaje enviado correctamente."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Error conectando con el servidor."
+        );
+
+    }
+
+}
+        /* =====================================================
+           NUEVO CLIENTE
+        ===================================================== */
+
+        function abrirModalNuevoCliente() {
+
+            document.getElementById(
+                "tituloModalCliente"
+            ).textContent =
+                "➕ Nuevo cliente";
+
+
+            document.getElementById(
+                "clienteId"
+            ).value = "";
+
+
+            document.getElementById(
+                "clienteNombre"
+            ).value = "";
+
+
+            document.getElementById(
+                "clienteTelefono"
+            ).value = "";
+
+
+            document.getElementById(
+                "clienteCorreo"
+            ).value = "";
+
+
+            document.getElementById(
+                "clienteTipo"
+            ).value = "";
+
+
+            document.getElementById(
+                "clienteNotas"
+            ).value = "";
+
+
+            document.getElementById(
+                "clienteEstado"
+            ).value = "Activo";
+
+
+            document.getElementById(
+                "modalCliente"
+            ).style.display = "flex";
+
+        }
+
+
+        /* =====================================================
+           CERRAR MODAL
+        ===================================================== */
+
+        function cerrarModalCliente() {
+
+            document.getElementById(
+                "modalCliente"
+            ).style.display = "none";
+
+        }
+
+
+        /* =====================================================
+           EDITAR CLIENTE
+        ===================================================== */
+
+        async function editarCliente(id) {
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        `/panel/api/clientes/${id}`
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    alert(
+                        datos.error ||
+                        "No se pudo cargar el cliente."
+                    );
+
+                    return;
+
+                }
+
+
+                const cliente =
+                    datos.cliente;
+
+
+                document.getElementById(
+                    "tituloModalCliente"
+                ).textContent =
+                    "✏️ Editar cliente";
+
+
+                document.getElementById(
+                    "clienteId"
+                ).value =
+                    cliente.id;
+
+
+                document.getElementById(
+                    "clienteNombre"
+                ).value =
+                    cliente.nombre || "";
+
+
+                document.getElementById(
+                    "clienteTelefono"
+                ).value =
+                    cliente.telefono || "";
+
+
+                document.getElementById(
+                    "clienteCorreo"
+                ).value =
+                    cliente.correo || "";
+
+
+                document.getElementById(
+                    "clienteTipo"
+                ).value =
+                    cliente.tipo_cliente || "";
+
+
+                document.getElementById(
+                    "clienteNotas"
+                ).value =
+                    cliente.notas || "";
+
+
+                document.getElementById(
+                    "clienteEstado"
+                ).value =
+                    cliente.estado || "Activo";
+
+
+                document.getElementById(
+                    "modalCliente"
+                ).style.display = "flex";
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           GUARDAR CLIENTE
+        ===================================================== */
+
+        async function guardarCliente() {
+
+            const id =
+                document.getElementById(
+                    "clienteId"
+                ).value;
+
+
+            const nombre =
+                document.getElementById(
+                    "clienteNombre"
+                ).value.trim();
+
+
+            const telefono =
+                document.getElementById(
+                    "clienteTelefono"
+                ).value.trim();
+
+
+            const correo =
+                document.getElementById(
+                    "clienteCorreo"
+                ).value.trim();
+
+
+            const tipo =
+                document.getElementById(
+                    "clienteTipo"
+                ).value;
+
+
+            const notas =
+                document.getElementById(
+                    "clienteNotas"
+                ).value.trim();
+
+
+            const estado =
+                document.getElementById(
+                    "clienteEstado"
+                ).value;
+
+
+            if (!nombre || !telefono) {
+
+                alert(
+                    "El nombre y el teléfono son obligatorios."
+                );
+
+                return;
+
+            }
+
+
+            const datosCliente = {
+
+                nombre:
+                    nombre,
+
+                telefono:
+                    telefono,
+
+                correo:
+                    correo || null,
+
+                tipo_cliente:
+                    tipo || null,
+
+                notas:
+                    notas || null,
+
+                estado:
+                    estado
+
+            };
+
+
+            try {
+
+                let respuesta;
+
+
+                if (id) {
+
+                    respuesta =
+                        await fetch(
+                            `/panel/api/clientes/${id}`,
+                            {
+                                method: "PUT",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        datosCliente
+                                    )
+                            }
+                        );
+
+                }
+
+                else {
+
+                    respuesta =
+                        await fetch(
+                            "/panel/api/clientes",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        datosCliente
+                                    )
+                            }
+                        );
+
+                }
+
+
+                const resultado =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !resultado.ok
+                ) {
+
+                    alert(
+                        resultado.error ||
+                        "No se pudo guardar el cliente."
+                    );
+
+                    return;
+
+                }
+
+
+                cerrarModalCliente();
+
+                await cargarClientes();
+
+
+                alert(
+                    id
+                        ? "✅ Cliente actualizado correctamente."
+                        : "✅ Cliente agregado correctamente."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           ELIMINAR CLIENTE
+        ===================================================== */
+
+        async function eliminarCliente(id) {
+
+            if (
+                !confirm(
+                    "¿Seguro que deseas eliminar este cliente?"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        `/panel/api/clientes/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    alert(
+                        datos.error ||
+                        "No se pudo eliminar el cliente."
+                    );
+
+                    return;
+
+                }
+
+
+                await cargarClientes();
+
+
+                alert(
+                    "✅ Cliente eliminado correctamente."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CAMBIAR ESTADO
+        ===================================================== */
+
+        async function cambiarEstadoCliente(
+            id,
+            nuevoEstado
+        ) {
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        `/panel/api/clientes/${id}/estado`,
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    estado:
+                                        nuevoEstado
+                                })
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                if (
+                    !respuesta.ok ||
+                    !datos.ok
+                ) {
+
+                    alert(
+                        datos.error ||
+                        "No se pudo cambiar el estado."
+                    );
+
+                    return;
+
+                }
+
+
+                await cargarClientes();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "❌ Error conectando con el servidor."
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           ESCAPAR HTML
+        ===================================================== */
+
+        function escaparHTML(texto) {
+
+            if (!texto) {
+
+                return "";
+
+            }
+
+
+            return String(texto)
+
+                .replace(/&/g, "&amp;")
+
+                .replace(/</g, "&lt;")
+
+                .replace(/>/g, "&gt;")
+
+                .replace(/"/g, "&quot;")
+
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =====================================================
+           VERIFICAR ROL
+        ===================================================== */
+
+        async function verificarRolUsuario() {
+
+            try {
+
+                const respuesta =
+                    await fetch(
+                        "/panel/api/sesion"
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                const botonAsesores =
+                    document.querySelector(
+                        ".btn-asesores"
+                    );
+
+
+                if (!botonAsesores) {
+
+                    return;
+
+                }
+
+
+                if (!datos.autenticado) {
+
+                    window.location.href =
+                        "/login";
+
+                    return;
+
+                }
+
+
+                if (
+                    datos.rol !==
+                    "administrador"
+                ) {
+
+                    botonAsesores.style.display =
+                        "none";
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Error verificando sesión:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
            INICIAR PANEL
-        ========================================= */
+        ===================================================== */
+
+        verificarRolUsuario();
 
         cargarConversaciones();
 
 
-
-        /* =========================================
-           ACTUALIZACIÓN AUTOMÁTICA
-        ========================================= */
-
         intervaloConversaciones =
             setInterval(
-                cargarConversaciones,
+                () => {
+
+                    if (!modoClientesActivo) {
+
+                        cargarConversaciones();
+
+                    }
+
+                },
                 10000
             );
 
@@ -1967,13 +3415,46 @@
                 actualizarChat,
                 5000
             );
-        window.addEventListener("resize", () => {
 
-    if (window.innerWidth > 700) {
-        document.body.classList.remove("movil-chat-activo");
-    }
 
-    });
+        window.addEventListener(
+            "resize",
+            () => {
+
+                if (
+                    window.innerWidth > 700
+                ) {
+
+                    document.body.classList.remove(
+                        "movil-chat-activo"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           CERRAR MODAL AL HACER CLICK AFUERA
+        ===================================================== */
+
+        document.getElementById(
+            "modalCliente"
+        ).addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target === this
+                ) {
+
+                    cerrarModalCliente();
+
+                }
+
+            }
+        );
 
     </script>
 

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recuperar contraseña | Nexa Propiedades</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #111827, #1f2937);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .logo {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 18px;
+            border-radius: 15px;
+            background: #111827;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            color: #111827;
+            font-size: 24px;
+        }
+
+        .descripcion {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 12px 0 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #111827;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px;
+            border: none;
+            border-radius: 9px;
+            background: #111827;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1f2937;
+        }
+
+        .volver {
+            display: block;
+            width: 100%;
+            margin-top: 12px;
+            padding: 13px;
+            border-radius: 9px;
+            background: #f3f4f6;
+            color: #374151;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .volver:hover {
+            background: #e5e7eb;
+        }
+
+        .mensaje {
+            display: none;
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #ffe5e5;
+            color: #b42318;
+            border: 1px solid #f5b5b5;
+        }
+
+        .exito {
+            background: #e7f7ed;
+            color: #18794e;
+            border: 1px solid #a7dfbf;
+        }
+
+        .confirmacion {
+            display: none;
+            text-align: center;
+        }
+
+        .icono-exito {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #e7f7ed;
+            color: #18794e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+        }
+
+        .confirmacion h2 {
+            color: #111827;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .confirmacion p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .formulario {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="logo">N</div>
+
+    <!-- FORMULARIO -->
+    <div id="formulario" class="formulario">
+
+        <h1>Recuperar contraseña</h1>
+
+        <p class="descripcion">
+            Ingresa el correo asociado a tu cuenta de Nexa Propiedades.
+            Te enviaremos un enlace para crear una nueva contraseña.
+        </p>
+
+        <div id="mensaje-error" class="mensaje error"></div>
+
+        <form method="POST" action="/recuperar-password">
+
+            <label for="correo">Correo electrónico</label>
+
+            <input
+                type="email"
+                id="correo"
+                name="correo"
+                placeholder="correo@ejemplo.com"
+                required
+                autocomplete="email"
+            >
+
+            <button type="submit">
+                📧 Enviar enlace
+            </button>
+
+        </form>
+
+        <a href="/login" class="volver">
+            ← Regresar al inicio de sesión
+        </a>
+
+    </div>
+
+
+    <!-- CONFIRMACIÓN -->
+    <div id="confirmacion" class="confirmacion">
+
+        <div class="icono-exito">
+            ✓
+        </div>
+
+        <h2>¡Correo enviado!</h2>
+
+        <p>
+            El correo de recuperación ha sido enviado exitosamente.
+            Revisa tu bandeja de entrada y sigue las instrucciones
+            para crear una nueva contraseña.
+        </p>
+
+        <p>
+            Si no encuentras el mensaje, revisa también la carpeta
+            de spam o correo no deseado.
+        </p>
+
+        <a href="/login" class="volver">
+            ← Regresar al inicio de sesión
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const parametros = new URLSearchParams(window.location.search);
+
+    const error = parametros.get("error");
+    const mensaje = parametros.get("mensaje");
+
+    const formulario = document.getElementById("formulario");
+    const confirmacion = document.getElementById("confirmacion");
+    const mensajeError = document.getElementById("mensaje-error");
+
+
+    // Mostrar error
+    if (error) {
+
+        mensajeError.textContent = "❌ " + error;
+        mensajeError.style.display = "block";
+
+    }
+
+
+    // Mostrar confirmación
+    if (mensaje === "Solicitud recibida") {
+
+        formulario.style.display = "none";
+        confirmacion.style.display = "block";
+
+    }
+
+</script>
+
+</body>
+</html>
