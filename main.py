@@ -5,6 +5,8 @@ import itertools
 from auth import verificar_password, generar_hash   
 import hashlib
 from email.message import EmailMessage
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from fastapi import FastAPI, Request,Query
 from urllib.parse import quote
 from fastapi.responses import (
@@ -62,6 +64,11 @@ import time
 
 app = FastAPI(title="Nexa Propiedades Bot")
 
+app.mount(
+    "/static",
+    StaticFiles(directory=str(BASE_DIR / "static")),
+    name="static"
+)
 
 # ============================================================
 # CONFIGURACIÓN DE SESIONES
