@@ -1211,7 +1211,15 @@ async def recibir_mensaje(request: Request):
         # ====================================================
 
 
-        if texto:
+        if texto in [
+            "hola",
+            "menu",
+            "menú",
+            "inicio",
+            "buenas",
+            "buenos dias",
+            "buenas tardes"            
+        ]:
 
             enviar_mensaje(
                 numero,
@@ -1322,7 +1330,7 @@ Por favor escribe un número del menú:
 2️⃣ Ventas
 3️⃣ Publicar mi inmueble
 4️⃣ Hablar con un asesor
-
+5️⃣ Me interesa un inmueble específico
 0️⃣ Volver al menú
 """
 
