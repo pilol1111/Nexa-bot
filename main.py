@@ -1211,13 +1211,7 @@ async def recibir_mensaje(request: Request):
         # ====================================================
 
 
-        if texto in [
-            "hola",
-            "menu",
-            "menú",
-            "inicio",
-            "buenas"
-        ]:
+        if texto:
 
             enviar_mensaje(
                 numero,
