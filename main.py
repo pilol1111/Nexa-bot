@@ -1444,56 +1444,177 @@ MENU_ASESOR = (
 )
 
 def procesar_estado(numero, texto, texto_original=None):
-    """Devuelve True si el mensaje lo atendió el submenú del asesor."""
+    """Procesa los estados de conversación del cliente."""
+
     estado = estado_usuario.get(numero)
+
     if not estado:
         return False
 
-    # "0" siempre vuelve al menú principal
+    # ==========================================
+    # MENÚ DEL INMUEBLE DE FINCA RAÍZ
+    # ==========================================
+    if isinstance(estado, dict) and estado.get("estado") == "menu_inmueble":
+
+        if texto == "1":
+            estado_usuario[numero] = {
+                **estado,
+                "estado": "esperando_cita_inmueble"
+            }
+
+            enviar_mensaje(
+                numero,
+                "📅 *AGENDAR UNA CITA*\n\n"
+                f"Inmueble: {estado.get('titulo', 'Inmueble de interés')}\n"
+                f"Código: {estado.get('codigo', '')}\n\n"
+                "¿Qué día y a qué hora te gustaría visitar el inmueble?\n\n"
+                "Escribe la fecha y hora que prefieres.\n"
+                "Ejemplo: sábado a las 10 de la mañana.\n\n"
+                "0️⃣ Volver al menú principal"
+            )
+
+        elif texto == "2":
+            estado_usuario[numero] = "esperando_asesor"
+            notificar_asesores(numero)
+
+            enviar_mensaje(
+                numero,
+                "👨‍💼 *HABLAR CON UN ASESOR*\n\n"
+                "Hemos recibido tu solicitud para recibir atención "
+                "personalizada sobre el inmueble.\n\n"
+                "Un asesor de Nexa Propiedades te atenderá en breve.\n\n"
+                "Escribe 0 para volver al menú principal."
+            )
+
+        else:
+            enviar_mensaje(
+                numero,
+                "Por favor, selecciona una opción:\n\n"
+                "1️⃣ Agendar una cita\n"
+                "2️⃣ Hablar con un asesor\n"
+                "0️⃣ Volver al menú principal"
+            )
+
+        return True
+
+    # ==========================================
+    # RECIBIR FECHA Y HORA DE LA CITA
+    # ==========================================
+    if isinstance(estado, dict) and estado.get("estado") == "esperando_cita_inmueble":
+
+        if not texto_original or not texto_original.strip():
+            enviar_mensaje(
+                numero,
+                "Por favor, indícanos el día y la hora que prefieres."
+            )
+            return True
+
+        codigo = estado.get("codigo", "")
+        titulo = estado.get("titulo", "Inmueble de interés")
+        fecha_solicitada = texto_original.strip()
+
+        # Volver al menú del inmueble mientras se confirma la cita
+        estado_usuario[numero] = {
+            **estado,
+            "estado": "menu_inmueble"
+        }
+
+        enviar_mensaje(
+            numero,
+            "✅ *SOLICITUD DE VISITA RECIBIDA*\n\n"
+            f"🏠 Inmueble: {titulo}\n"
+            f"🔢 Código: {codigo}\n"
+            f"📅 Fecha y hora solicitadas: {fecha_solicitada}\n\n"
+            "Un asesor deberá confirmar la disponibilidad de la visita.\n\n"
+            "¿Qué deseas hacer ahora?\n\n"
+            "1️⃣ Agendar otra cita\n"
+            "2️⃣ Hablar con un asesor\n"
+            "0️⃣ Volver al menú principal"
+        )
+
+        notificar_asesores(
+            numero
+        )
+
+        return True
+
+    # ==========================================
+    # VOLVER AL MENÚ PRINCIPAL
+    # ==========================================
     if texto == "0":
         estado_usuario.pop(numero, None)
         enviar_mensaje(numero, MENU)
         return True
 
+    # ==========================================
+    # SUBMENÚ GENERAL DEL ASESOR
+    # ==========================================
     if estado == "menu_asesor":
+
         if texto == "1":
             estado_usuario[numero] = "esperando_link"
-            enviar_mensaje(numero, "Envíanos el link del inmueble que te interesa para poder ayudarte mejor.")
+            enviar_mensaje(
+                numero,
+                "Envíanos el enlace del inmueble que te interesa."
+            )
+
         elif texto == "2":
             estado_usuario[numero] = "esperando_visita"
-            enviar_mensaje(numero, "¿qué día y hora te queda bien?")
+            enviar_mensaje(
+                numero,
+                "¿Qué día y hora te queda bien para la visita?"
+            )
+
         elif texto == "3":
             estado_usuario.pop(numero, None)
             enviar_mensaje(numero, MENU)
+
         else:
-            enviar_mensaje(numero, "Opción no válida 😅\n\n" + MENU_ASESOR)
+            enviar_mensaje(
+                numero,
+                "Opción no válida 😅\n\n" + MENU_ASESOR
+            )
+
         return True
 
+    # ==========================================
+    # ESPERANDO ATENCIÓN DE UN ASESOR
+    # ==========================================
     if estado == "esperando_asesor":
         enviar_mensaje(
             numero,
-            "⏳ Estamos buscando un asesor disponible, te atenderán en breve.\n\nSi quieres volver al menú escribe 0."
+            "⏳ Estamos buscando un asesor disponible; "
+            "te atenderán en breve.\n\n"
+            "Si quieres volver al menú, escribe 0."
         )
         return True
 
+    # ==========================================
+    # ESPERANDO ENLACE DEL INMUEBLE
+    # ==========================================
     if estado == "esperando_link":
-        estado_usuario[numero] = "menu_asesor"   # vuelve al submenú
+        estado_usuario[numero] = "menu_asesor"
         enviar_mensaje(
             numero,
-            "¡Gracias! para agendar tu visita ingresa la opcion 2.\n\n" + MENU_ASESOR
+            "¡Gracias! Para agendar tu visita, ingresa la opción 2.\n\n"
+            + MENU_ASESOR
         )
         return True
 
+    # ==========================================
+    # ESPERANDO FECHA DE VISITA GENERAL
+    # ==========================================
     if estado == "esperando_visita":
-        estado_usuario[numero] = "menu_asesor"   # vuelve al submenú
+        estado_usuario[numero] = "menu_asesor"
         enviar_mensaje(
             numero,
-            "Listo, registramos tu solicitud. Un asesor te confirmará la visita.\n\n" + MENU_ASESOR
+            "Listo, recibimos tu solicitud. Un asesor deberá confirmar "
+            "la disponibilidad de la visita.\n\n"
+            + MENU_ASESOR
         )
         return True
 
     return False
-
 
 # ============================================================
 # MOSTRAR INMUEBLES
@@ -1683,10 +1804,21 @@ def procesar_interes_fincaraiz(numero, texto):
         f"💰 Precio: {precio_formateado} {moneda}\n"
         f"📌 Estado: {estado}\n\n"
         f"🔗 Ver anuncio:\n{url}\n\n"
-        "¿Quieres recibir más información o hablar con un asesor?"
+        "¿Quieres recibir más información o hablar con un asesor?\n\n"
+     "1️⃣ Agendar una cita\n"
+     "2️⃣ Hablar con un asesor\n"
+     "0️⃣ Volver al menú principal"
     )
 
     enviar_mensaje(numero, mensaje)
+
+    # Guardar el inmueble de interés para los siguientes pasos  
+    estado_usuario[numero] = {
+    "estado": "menu_inmueble",
+    "codigo": str(codigo_externo),
+    "titulo": titulo,
+    "url": url
+}
 
     return True
 
