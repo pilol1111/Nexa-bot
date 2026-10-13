@@ -41,6 +41,7 @@ from database import (
     crear_asesor,
     obtener_asesores,
     cambiar_estado_asesor,
+    obtener_inmueble_por_codigo,
 
     # CLIENTES
     agregar_cliente,
@@ -1199,6 +1200,9 @@ async def recibir_mensaje(request: Request):
 
         texto = mensaje["text"]["body"].strip().lower()
 
+        if procesar_interes_fincaraiz(numero, texto):
+            return {"status": "ok"}
+
         print("Número:", numero)
         print("Texto:", texto)
         print("Estado actual:", estado_usuario.get(numero))
@@ -1612,6 +1616,79 @@ Por favor intenta nuevamente más tarde.
 0️⃣ Volver al menú
 """
         )
+
+# ============================================================
+# PROCESAR INTERÉS FINCARAIZ
+# ============================================================
+
+def procesar_interes_fincaraiz(numero, texto):
+    texto_normalizado = texto.lower()
+
+    # Detectar mensajes que provienen de Finca Raíz
+    if "fincaraiz.com.co" not in texto_normalizado:
+        return False
+
+    # Extraer el código numérico del anuncio
+    coincidencia = re.search(
+        r"fincaraiz\.com\.co/[^/\s]+/(\d+)",
+        texto_normalizado
+    )
+
+    if not coincidencia:
+        coincidencia = re.search(
+            r"inmueble\s+(\d+)",
+            texto_normalizado
+        )
+
+    if not coincidencia:
+        enviar_mensaje(
+            numero,
+            "¡Gracias por tu interés! 🏠\n\n"
+            "No pudimos identificar el código del inmueble. "
+            "Un asesor de Nexa Propiedades puede ayudarte."
+        )
+        return True
+
+    codigo = coincidencia.group(1)
+
+    inmueble = obtener_inmueble_por_codigo(codigo)
+
+    if not inmueble:
+        enviar_mensaje(
+            numero,
+            f"¡Gracias por contactarnos! 🏠\n\n"
+            f"Recibimos tu interés en el inmueble "
+            f"*{codigo}*, pero no encontramos ese anuncio "
+            "entre los inmuebles disponibles.\n\n"
+            "Un asesor puede ayudarte a verificarlo."
+        )
+        return True
+
+    (
+        id_publicacion,
+        codigo_externo,
+        titulo,
+        precio,
+        moneda,
+        estado,
+        url
+    ) = inmueble
+
+    precio_formateado = f"${precio:,.0f}".replace(",", ".")
+
+    mensaje = (
+        "🏠 *¡Encontramos el inmueble que te interesa!*\n\n"
+        f"*{titulo}*\n\n"
+        f"🔢 Código: {codigo_externo}\n"
+        f"💰 Precio: {precio_formateado} {moneda}\n"
+        f"📌 Estado: {estado}\n\n"
+        f"🔗 Ver anuncio:\n{url}\n\n"
+        "¿Quieres recibir más información o hablar con un asesor?"
+    )
+
+    enviar_mensaje(numero, mensaje)
+
+    return True
 
 # ============================================================
 # ENVIAR MENSAJE A WHATSAPP

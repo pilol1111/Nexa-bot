@@ -83,6 +83,36 @@ def obtener_inmuebles(tipo_operacion):
         cursor.close()
         conexion.close()
 
+# obtener inmueble por codigo
+
+def obtener_inmueble_por_codigo(codigo_externo):
+    conexion = obtener_conexion()
+    cursor = conexion.cursor()
+
+    try:
+        consulta = """
+            SELECT
+                id_publicacion,
+                codigo_externo,
+                titulo,
+                precio,
+                moneda,
+                estado,
+                url_anuncio
+            FROM publicaciones
+            WHERE codigo_externo = %s
+              AND estado = 'Activo'
+              AND visibilidad <> 'Oculto'
+            LIMIT 1;
+        """
+
+        cursor.execute(consulta, (str(codigo_externo),))
+        return cursor.fetchone()
+
+    finally:
+        cursor.close()
+        conexion.close()
+
 
 # ==========================================
 # OBTENER MODO DEL CLIENTE
